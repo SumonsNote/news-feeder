@@ -8,7 +8,7 @@ import TopRightSideNews from "./TopRightSideNews";
 export default function AllNews() {
   const { newsData } = useNewsContext();
 
-  if (!newsData || !newsData.articles || newsData.articles.length === 0) {
+  if (!newsData || !newsData.articles) {
     return (
       <p className="text-center p-6 bg-sky-600 text-white text-2xl">
         Not Found

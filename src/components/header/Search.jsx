@@ -5,7 +5,7 @@ import { useNewsContext } from "../../hooks/useNewsContext";
 
 export default function Search() {
   const [query, setQuery] = useState("");
-  const [error, setError] = useState(null);
+
   const debounceValue = useDebounce(query, 500);
   const { setNewsData } = useNewsContext();
 
@@ -20,12 +20,12 @@ export default function Search() {
         const json = await res.json();
         setNewsData({ articles: json?.result });
       } catch (error) {
-        setError(error.message);
+        console.error(error);
       }
     };
 
     fetchData();
-  }, [debounceValue, setNewsData]);
+  }, [debounceValue, setNewsData, setQuery]);
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
@@ -50,11 +50,6 @@ export default function Search() {
           clipRule="evenodd"
         />
       </svg>
-      {error && (
-        <p className="text-center p-6 bg-red-700 text-white text-2xl">
-          {error}
-        </p>
-      )}
     </div>
   );
 }
